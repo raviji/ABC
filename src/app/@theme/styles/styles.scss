@@ -12,6 +12,7 @@
 @import './pace.theme';
 @import './layout';
 @import './overrides';
+@import './variables';
 // install the framework and custom global styles
 @include nb-install() {
     // framework global styles
@@ -25,7 +26,7 @@
 
 // SIDE BAR MENU STYLES
 .nb-theme-default .menu-sidebar .scrollable {
-    background: #0171AD !important;
+    background: $primary_clr !important;
 }
 
 .nb-theme-default .scrollable {
@@ -36,13 +37,13 @@
         border-bottom: 1px solid rgba(255, 255, 255, .2);
         ;
         span {
-            color: #fff;
+            color: $menu_txt_clr;
             font-size: 12px;
             margin-left: 1rem;
         }
         a {
             float: right;
-            color: #fff;
+            color: $menu_txt_clr;
             margin-right: 1rem;
         }
     }
@@ -54,13 +55,13 @@
         li.menu-item {
             border-bottom: 1px solid rgba(255, 255, 255, .2);
             .expand-state {
-                color: #fff;
+                color: $menu_txt_clr;
             }
             a {
-                color: #fff;
+                color: $menu_txt_clr;
                 font-weight: 600;
                 .menu-icon {
-                    color: #fff;
+                    color: $menu_txt_clr;
                 }
             }
             ul.menu-items {
@@ -69,25 +70,25 @@
             ul.menu-items>li.menu-item {
                 border: none;
                 a {
-                    color: #fff;
+                    color: $menu_txt_clr;
                     padding: 0.2rem 1.7rem;
                 }
                 a.active {
-                    color: #fff;
-                    background-color: #046294;
+                    color: $menu_txt_clr;
+                    background-color: $menuActiveBgClr;
                     border-radius: 8px;
                     line-height: 20px;
                 }
             }
         }
         & a.active {
-            color: #fff;
+            color: $menu_txt_clr;
             .menu-icon {
-                color: #fff;
+                color: $menu_txt_clr;
             }
         }
         & a.active::before {
-            background: #ffffff !important;
+            background: $bg_clr !important;
         }
     }
 }
