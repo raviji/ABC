@@ -4,11 +4,16 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
+    {
+      path: 'home',
+      component: HomeComponent,
+    },
     {
       path: 'dashboard',
       component: DashboardComponent,
