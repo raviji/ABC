@@ -1,0 +1,32 @@
+<div class="header-container">
+    <div class="logo-container">
+        <!-- <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+            <nb-icon icon="menu-2-outline"></nb-icon>
+        </a> -->
+        <a class="logo" href="#" (click)="navigateHome()">
+            <img src="./assets/icons/logo.svg" />
+            <span>Market Price Optimization</span>
+        </a>
+    </div>
+    <!-- <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+        <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+    </nb-select> -->
+</div>
+
+<div class="header-container">
+    <nb-actions size="small">
+
+        <nb-action class="control-item">
+            <a class="icon-container ng-star-inserted" href="#"><img src="./assets/icons/icon_info.svg" /></a>
+        </nb-action>
+        <nb-action class="control-item">
+            <a class="icon-container ng-star-inserted" href="#"><img src="./assets/icons/icon_training.svg" /></a>
+        </nb-action>
+        <nb-action class="control-item">
+            <a class="icon-container ng-star-inserted" href="#"><img src="./assets/icons/icon_support.svg" /></a>
+        </nb-action>
+        <nb-action class="control-item">
+            <a class="icon-container ng-star-inserted" href="#"><img src="./assets/icons/icon_logout.svg" /></a>
+        </nb-action>
+    </nb-actions>
+</div>
