@@ -32,10 +32,10 @@ import { LayoutService } from '../../../@core/utils';
   `,
 })
 export class OneColumnLayoutComponent {
-  constructor(private sidebarService: NbSidebarService, private layoutService: LayoutService,) {
+  constructor(private sidebarService: NbSidebarService, private layoutService: LayoutService) {
   }
   toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, 'menu-sidebar');
+    this.sidebarService.toggle(false, 'menu-sidebar');
     this.layoutService.changeLayoutSize();
 
     return false;
