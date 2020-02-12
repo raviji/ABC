@@ -23,7 +23,71 @@
     @include nb-overrides();
 }
 
-;
+// SIDE BAR MENU STYLES
 .nb-theme-default .menu-sidebar .scrollable {
     background: #0171AD !important;
+}
+
+.nb-theme-default .scrollable {
+    padding-top: 0rem !important;
+    .toggle_link {
+        padding: 10px 0 10px 0;
+        margin: 0 -20px 0 -20px;
+        border-bottom: 1px solid rgba(255, 255, 255, .2);
+        ;
+        span {
+            color: #fff;
+            font-size: 12px;
+            margin-left: 1rem;
+        }
+        a {
+            float: right;
+            color: #fff;
+            margin-right: 1rem;
+        }
+    }
+}
+
+.nb-theme-default .menu-sidebar {
+    ul.menu-items {
+        width: 100% !important;
+        li.menu-item {
+            border-bottom: 1px solid rgba(255, 255, 255, .2);
+            .expand-state {
+                color: #fff;
+            }
+            a {
+                color: #fff;
+                font-weight: 600;
+                .menu-icon {
+                    color: #fff;
+                }
+            }
+            ul.menu-items {
+                margin: 0 0 10px 0;
+            }
+            ul.menu-items>li.menu-item {
+                border: none;
+                a {
+                    color: #fff;
+                    padding: 0.2rem 1.7rem;
+                }
+                a.active {
+                    color: #fff;
+                    background-color: #046294;
+                    border-radius: 8px;
+                    line-height: 20px;
+                }
+            }
+        }
+        & a.active {
+            color: #fff;
+            .menu-icon {
+                color: #fff;
+            }
+        }
+        & a.active::before {
+            background: #ffffff !important;
+        }
+    }
 }
