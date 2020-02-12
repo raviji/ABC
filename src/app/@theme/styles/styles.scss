@@ -92,3 +92,12 @@
         }
     }
 }
+
+.nb-theme-default a {
+    color: #fff;
+}
+
+a.my-2 {
+    color: $primary_clr !important;
+    margin-left: 20px;
+}
