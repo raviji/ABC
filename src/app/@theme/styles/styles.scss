@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+// @import url('//db.onlinewebfonts.com/c/d5600cfdfe4585a9cda14e38fb500cb4?family=HP+Simplified+W10+Light');
 // themes - our custom or/and out of the box themes
 @import 'themes';
 // framework component themes (styles tied to theme variables)
@@ -22,6 +23,23 @@
     // loading progress bar
     @include ngx-pace-theme();
     @include nb-overrides();
+}
+
+body,
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+i,
+a {
+    // font-family: 'HP Simplified W10 Light' !important;
+    font-size: calc(0.5em + 0.5vw)
 }
 
 // SIDE BAR MENU STYLES
@@ -107,9 +125,8 @@ a.my-2 {
 }
 
 nb-layout-column {
-    // height: 100vh;
     background-image: url('../../../assets/images/ellipse_bg.svg');
     background-repeat: no-repeat;
     background-attachment: scroll;
-    background-position: -35% 225%;
+    background-position: bottom -200px left -210px;
 }
