@@ -1,0 +1,287 @@
+<ng-container *ngIf="!loading; else loadingSpinnerTemplate">
+  <div class="top-controller">
+    <div class="toggles">
+      <app-visible-column-control
+        *ngIf="hidableColumns"
+        [columns]="columns"
+        [cellDefinitions]="cellDefinitions"
+        [(hiddenColumns)]="hiddenColumns"
+        (hiddenColumnsChange)="generateTable(true)"></app-visible-column-control>
+
+      <app-fixed-column-control
+        *ngIf="fixableColumns"
+        [columns]="columns"
+        [cellDefinitions]="cellDefinitions"
+        [(fixedCellDefinitions)]="fixedCellDefinitions"
+        [fixableCellDefinitions]="rootCellDefinitions"
+        (fixedCellDefinitionsChange)="generateTable()"></app-fixed-column-control>
+    </div>
+
+    <app-table-filter
+      [filterableCellDefinitions]="filterableCellDefinitions"
+      (filterChange)="onFilterChange($event)"></app-table-filter>
+  </div>
+
+  <div class="scroll-wrapper" #scrollWrapperElement (scroll)="setHeaderTop($event)">
+    <div class="inner-width-detector" #innerWidthDetectorElement></div>
+    <!-- original table -->
+    <div class="abc-table-wrapper" #tableWrapperElement>
+      <!-- render table header -->
+      <div class="header-table-wrapper">
+        <ng-container *ngTemplateOutlet="headerTableTemplate; context: {
+        cells: getReorderedCellDefinitions(),
+        hideCells: false
+      }"></ng-container>
+      </div>
+      <!-- render table body -->
+      <div class="body-table-wrapper">
+        <ng-container *ngTemplateOutlet="bodyTableTemplate"></ng-container>
+      </div>
+    </div>
+
+    <!-- fixed header -->
+    <!-- cloned table for fixed header -->
+    <ng-container *ngIf="fixedHeader">
+      <div class="abc-table-wrapper clone header" [style.top]="headerTop + 'px'">
+        <div class="header-table-wrapper">
+          <ng-container *ngTemplateOutlet="headerTableTemplate; context: {
+          cells: getReorderedCellDefinitions(),
+          hideCells: false,
+          cloneWidth: true
+        }"></ng-container>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- fixed column -->
+    <!-- cloned table for fixed column -->
+    <ng-container *ngIf="fixedCellDefinitions && fixedCellDefinitions.length > 0">
+      <div
+        class="abc-table-wrapper clone column"
+        [style.left]="columnLeft + 'px'"
+        [style.width]="getFixedColumnsWidth() + 'px'">
+        <div class="header-table-wrapper" #verticalFixedColumnElement>
+          <ng-container *ngTemplateOutlet="headerTableTemplate; context: {
+          cells: getReorderedCellDefinitions(),
+          hideCells: true,
+          cloneWidth: true
+        }"></ng-container>
+        </div>
+        <div class="body-table-wrapper">
+          <ng-container *ngTemplateOutlet="bodyTableTemplate; context: {
+          hideCells: true,
+          cloneWidth: true
+        }"></ng-container>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- header for both fixed header and column -->
+    <!-- cloned table for fixed header and column -->
+    <ng-container *ngIf="fixedHeader && fixedCellDefinitions && fixedCellDefinitions.length > 0">
+      <div
+        class="abc-table-wrapper clone both"
+        [style.left]="columnLeft + 'px'"
+        [style.top]="headerTop + 'px'"
+        [style.width]="getFixedColumnsWidth() + 'px'">
+        <div class="header-table-wrapper">
+          <ng-container *ngTemplateOutlet="headerTableTemplate; context: {
+          cells: getReorderedCellDefinitions(),
+          hideCells: true,
+          cloneWidth: true
+        }"></ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <app-table-paginator
+    [useSizeOptions]="true"
+    [page]="page"
+    [size]="size"
+    [total]="usingBackend ? total : filteredData.length"
+    (pageValueChange)="onPageValueChange($event)"></app-table-paginator>
+</ng-container>
+
+<!-- table for header sets -->
+<ng-template #headerTableTemplate let-cells="cells" let-hideCells="hideCells" let-cloneWidth="cloneWidth">
+  <table class="abc-table">
+    <!-- render colgroup -->
+    <ng-container *ngTemplateOutlet="columnGroupTemplate; context: {cloneWidth: cloneWidth}"></ng-container>
+    <thead>
+      <ng-container
+        *ngTemplateOutlet="headerRowRenderingTemplate; context: {cells: cells, hideCells: hideCells}">
+      </ng-container>
+    </thead>
+  </table>
+</ng-template>
+
+<!-- table for body sets -->
+<ng-template #bodyTableTemplate let-hideCells="hideCells" let-cloneWidth="cloneWidth">
+  <table class="abc-table">
+    <!-- render colgroup -->
+    <ng-container *ngTemplateOutlet="columnGroupTemplate; context: {cloneWidth: cloneWidth}"></ng-container>
+    <tbody class="table-body">
+      <ng-container
+        *ngTemplateOutlet="dataRowRenderingTemplate; context: {
+          data: usingBackend ? rows : getPagedData(),
+          cells: getReorderedCellDefinitions(),
+          hideCells: hideCells
+        }">
+      </ng-container>
+    </tbody>
+  </table>
+</ng-template>
+
+<!-- sorted indicator template -->
+<!-- it will render sorting direction and order -->
+<ng-template #sortedIndicatorTemplate let-index="index" let-cell="cell">
+  <ng-container *ngIf="index !== -1">
+    <span>{{index + 1}}</span>
+    <app-sort-order-icon [order]="sortedColumns[index].order" (click)="shiftSort(cell)"></app-sort-order-icon>
+  </ng-container>
+</ng-template>
+
+<!-- colgroup template -->
+<!-- render colgroup and cols -->
+<ng-template #columnGroupTemplate let-cloneWidth="cloneWidth">
+  <colgroup>
+    <col
+      *ngFor="let identifier of headerColumnIdentifiers; let i = index"
+      [style.width]="cloneWidth ? getHeaderCellWidthByIdentifier(identifier) + 'px' : null"
+      [attr.column-def-index]="i"
+      [attr.column-def-identifier]="identifier"/>
+  </colgroup>
+</ng-template>
+
+<!-- header row rendering template -->
+<!-- this will render header rows -->
+<ng-template #headerRowRenderingTemplate let-cells="cells" let-hideCells="hideCells">
+  <!-- render header rows -->
+  <tr *ngFor="let index of headerRowIndexes" class="abc-row">
+    <!-- header cells will be rendered when depth matched row index -->
+    <ng-container *ngFor="let cell of cells">
+      <ng-container *ngIf="cell.depth === index">
+        <ng-container *ngIf="cell.property !== controlColumnIdentifier; else leftMostHeaderColumnTemplate">
+          <th
+            class="abc-cell abc-header-cell"
+            #tableHeaderCellElement
+            (click)="toggleSort(cell)"
+            [class.in-control]="cell.renderData && inControl"
+            [class.hide]="hideCells && !isFixedCellDefinition(cell)"
+            [attr.header-cell-identifier]="cell.label | cellIdentifier"
+            [attr.header-cell-index]="cell.index"
+            [attr.colspan]="cell.colspan === 1 ? null : cell.colspan"
+            [attr.rowspan]="cell.rowspan === 1 ? null : cell.rowspan">
+            <div class="abc-cell-inner">
+              {{cell.label}}
+              <ng-container
+                *ngTemplateOutlet="sortedIndicatorTemplate; context: {
+                  index: findSortedColumnIndex(cell),
+                  cell: cell
+                }">
+              </ng-container>
+            </div>
+          </th>
+        </ng-container>
+
+        <ng-template #leftMostHeaderColumnTemplate>
+          <!-- control cell always put on leftmost -->
+          <!-- so its index will be always 0 -->
+          <th
+            class="abc-cell abc-header-cell"
+            #controlHeaderColumnElement
+            #tableHeaderCellElement
+            *ngIf="useControls"
+            [class.hide]="hideCells && !isFixedCellDefinition(cell)"
+            [attr.rowspan]="totalDepth === 1 ? null : totalDepth"
+            [attr.header-cell-identifier]="controlColumnIdentifier"
+            [attr.header-cell-index]="0">
+            <div class="abc-cell-inner">
+              <app-row-selector
+                *ngIf="selectable"
+                [(checked)]="selectAll"
+                (checkedChange)="onSelectAllToggled($event)"></app-row-selector>
+            </div>
+          </th>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+  </tr>
+</ng-template>
+
+<!-- data row rendering template -->
+<!-- this will render data rows -->
+<ng-template #dataRowRenderingTemplate let-data="data" let-cells="cells" let-hideCells="hideCells">
+  <!-- render data rows -->
+  <tr *ngFor="let item of data" class="abc-row">
+    <!-- data cells will be rendered when 'property' field is not null -->
+    <ng-container *ngFor="let cell of cells">
+      <ng-container *ngIf="cell.property !== controlColumnIdentifier; else leftMostDataColumnTemplate">
+        <td
+          class="abc-cell abc-body-cell"
+          *ngIf="cell.renderData"
+          [class.hide]="hideCells && !isFixedCellDefinition(cell)">
+          <div class="abc-cell-inner">
+            <div *ngFor="let value of (item | cellData: cell.property)">
+              {{value}}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-template #leftMostDataColumnTemplate>
+        <td *ngIf="useControls" class="abc-cell abc-body-cell">
+          <div class="abc-cell-inner abc-action-cell-inner">
+            <ng-container *ngFor="let action of actionOrder">
+              <app-row-selector
+                *ngIf="selectable && isSelectAction(action)"
+                [class.hide]="hideCells && !isFixedCellDefinition(cell)"
+                [checked]="isSelectedRow(item)"
+                (click)="toggleSelectedRow(item)"></app-row-selector>
+
+              <div
+                class="abc-action-button-wrapper"
+                *ngIf="deletable && isDeleteAction(action)">
+                <button
+                  class="abc-table-delete-button"
+                  (click)="onDeleteClick(item)">
+                  Delete
+                </button>
+              </div>
+
+              <div
+                class="abc-action-button-wrapper"
+                *ngIf="editable && isEditAction(action)">
+                <button
+                  class="abc-table-edit-button"
+                  (click)="onEditClick(item)">
+                  Edit
+                </button>
+              </div>
+
+              <div
+                #contextMenuButtonElement
+                class="abc-action-button-wrapper"
+                [class.active]="item === menuOpened"
+                *ngIf="hasContextMenu && isMenuAction(action)">
+                <button
+                  class="abc-table-menu-button"
+                  (click)="onMenuClick(item)">
+                  Menu
+                </button>
+                <ng-container *ngIf="item === menuOpened">
+                  <ng-container *ngTemplateOutlet="tableContextMenuDirective.templateRef"></ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </td>
+      </ng-template>
+    </ng-container>
+  </tr>
+</ng-template>
+
+<ng-template #loadingSpinnerTemplate>
+  <app-table-loading-spinner></app-table-loading-spinner>
+</ng-template>

@@ -1,0 +1,171 @@
+$fixed-column-border-color: #aaa;
+$table-border-color: #cecece;
+$row-2n-background: #f6f6f6;
+$table-border: 1px solid $table-border-color;
+$header-cell-background: linear-gradient(0deg, rgba(221, 221, 221, 1) 0%, rgba(242, 242, 242, 1) 100%);
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 1366px;
+
+  &.loading {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .top-controller {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    .toggles {
+      display: flex;
+      align-items: center;
+
+      app-visible-column-control {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .scroll-wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    overflow: auto;
+    border: $table-border;
+    box-sizing: border-box;
+
+    .inner-width-detector {
+      position: absolute;
+      width: 100%;
+    }
+
+    .abc-table-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      &.clone {
+        position: absolute;
+
+        &.header {
+          left: 0;
+          z-index: 5;
+        }
+
+        &.column {
+          top: 0;
+          overflow: hidden;
+        }
+
+        &.both {
+          overflow: hidden;
+          pointer-events: none;
+          z-index: 7;
+
+          .header-table-wrapper {
+            .abc-header-cell {
+              &:not(.hide) {
+                pointer-events: all;
+              }
+            }
+          }
+        }
+
+        &.column, &.both {
+          &::after {
+            position: absolute;
+            content: '';
+            width: 2px;
+            height: 100%;
+            top: 0;
+            right: 0;
+            background-color: $fixed-column-border-color;
+          }
+        }
+      }
+    }
+
+    // header table wrapper and body table wrapper common styles
+    .header-table-wrapper, .body-table-wrapper {
+      position: relative;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+  }
+
+  // default style for paginator
+  app-table-paginator {
+    margin-top: 20px;
+  }
+}
+
+// default styles for table
+.abc-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.abc-cell {
+  background-color: #fff;
+}
+
+.abc-cell-inner {
+  padding: 5px 15px;
+  display: flex;
+  flex-wrap: wrap;
+
+  &:not(.abc-action-cell-inner) {
+    flex-direction: column;
+  }
+}
+
+// default styles for table header cells
+.abc-header-cell {
+  // .in-control class is added when control button is downed
+  &.in-control {
+    cursor: pointer;
+  }
+
+  .abc-cell-inner {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    // span is used for sort order indicator
+    span {
+      font-weight: normal;
+      margin-left: 20px;
+    }
+  }
+}
+
+.abc-action-button-wrapper {
+  position: relative;
+}
+
+::ng-deep {
+  .abc-table-context-menu {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    z-index: 50;
+    background-color: #fff;
+
+    &.top {
+      bottom: 100%;
+      opacity: 1;
+    }
+
+    &.bottom {
+      top: 100%;
+      opacity: 1;
+    }
+  }
+}

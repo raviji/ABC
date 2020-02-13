@@ -16,6 +16,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
 import { FormsModule } from '@angular/forms';
+import {AbcTableModule} from '../../abc-table/abc-table.module';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { FormsModule } from '@angular/forms';
     NbButtonModule,
     NgxEchartsModule,
     NbAccordionModule,
+    AbcTableModule,
   ],
   declarations: [
     DashboardComponent,

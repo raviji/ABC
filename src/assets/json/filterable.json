@@ -1,0 +1,42 @@
+[
+  {
+    "name": "John",
+    "grade": 1,
+    "dateOfBirth": "1990-10-30"
+  },
+  {
+    "name": "Jane",
+    "grade": 4,
+    "dateOfBirth": "1988-11-22"
+  },
+  {
+    "name": "Smith",
+    "grade": 3,
+    "dateOfBirth": "1967-02-03"
+  },
+  {
+    "name": "Will",
+    "grade": 4,
+    "dateOfBirth": "1986-12-11"
+  },
+  {
+    "name": "Bill",
+    "grade": 6,
+    "dateOfBirth": "1934-05-06"
+  },
+  {
+    "name": "Tedd",
+    "grade": 5,
+    "dateOfBirth": "1993-01-15"
+  },
+  {
+    "name": "Jake",
+    "grade": 3,
+    "dateOfBirth": "1991-07-08"
+  },
+  {
+    "name": "Dan",
+    "grade": 7,
+    "dateOfBirth": "1960-09-01"
+  }
+]

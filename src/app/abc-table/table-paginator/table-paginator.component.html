@@ -1,0 +1,56 @@
+<ng-container *ngIf="useSizeOptions">
+  <ng-container *ngTemplateOutlet="sizeOptionTemplate"></ng-container>
+</ng-container>
+
+<ng-container *ngTemplateOutlet="paginatorTemplate"></ng-container>
+
+<ng-template #sizeOptionTemplate>
+  <div class="size">
+    <span>Items per page:</span>
+    <select (change)="onSizeChange($event)" [(ngModel)]="size">
+      <option *ngFor="let option of options" [value]="option.value">
+        {{option.label}}
+      </option>
+    </select>
+  </div>
+</ng-template>
+
+<ng-template #paginatorTemplate>
+  <div class="paginator">
+    <ng-container *ngTemplateOutlet="prevButtonTemplate"></ng-container>
+    <div
+      class="page number"
+      *ngFor="let page of pages"
+      [class.active]="isCurrentPage(page)"
+      (click)="toPage(page)">
+      {{page + 1}}
+    </div>
+    <ng-container *ngTemplateOutlet="nextButtonTemplate"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #prevButtonTemplate>
+  <svg
+    class="page"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    [class.disabled]="!hasPrev"
+    (click)="toPrevPage()">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+  </svg>
+</ng-template>
+
+<ng-template #nextButtonTemplate>
+  <svg
+    class="page"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    [class.disabled]="!hasNext"
+    (click)="toNextPage()">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+  </svg>
+</ng-template>
