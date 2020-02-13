@@ -89,7 +89,7 @@ export class DashboardComponent implements OnDestroy {
     },
     {
       label: 'Price Round',
-      property: 'priceRound'
+      property: 'priceRound',
     },
     {
       label: 'Summary',
@@ -139,11 +139,10 @@ export class DashboardComponent implements OnDestroy {
     this.http.get('../../../assets/json/dashboard/pending.json')
         .subscribe(data => {
           this.rows = data as any;
-
           // to show loading spinner
           setTimeout(() => {
             this.loading = false;
-          }, 2000);
+          }, 500);
         });
   }
   approvedData() {
@@ -151,11 +150,10 @@ export class DashboardComponent implements OnDestroy {
     this.http.get('../../../assets/json/dashboard/approved.json')
         .subscribe(data => {
           this.rows = data as any;
-
           // to show loading spinner
           setTimeout(() => {
             this.loading = false;
-          }, 2000);
+          }, 500);
         });
   }
 }
