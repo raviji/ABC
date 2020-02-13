@@ -1,4 +1,4 @@
-import {Component, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, ChangeDetectionStrategy, OnInit} from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators' ;
 import { SolarData } from '../../@core/data/solar';
@@ -85,11 +85,11 @@ export class DashboardComponent implements OnDestroy {
   columns: TableColumnData[] = [
     {
       label: 'Date',
-      property: 'date',
+      property: 'createdDate',
     },
     {
       label: 'Price Round',
-      property: 'priceRound',
+      property: 'priceRound'
     },
     {
       label: 'Summary',
@@ -126,16 +126,29 @@ export class DashboardComponent implements OnDestroy {
       .subscribe((data) => {
         this.solarValue = data;
       });
+    this.pendingData();
+    this.approvedData();
   }
 
   ngOnDestroy() {
     this.alive = false;
   }
 
-  getData() {
+  pendingData() {
     this.loading = true;
+    this.http.get('../../../assets/json/dashboard/pending.json')
+        .subscribe(data => {
+          this.rows = data as any;
 
-    this.http.get('../../../assets/json/default.json')
+          // to show loading spinner
+          setTimeout(() => {
+            this.loading = false;
+          }, 2000);
+        });
+  }
+  approvedData() {
+    this.loading = true;
+    this.http.get('../../../assets/json/dashboard/approved.json')
         .subscribe(data => {
           this.rows = data as any;
 
