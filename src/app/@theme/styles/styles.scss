@@ -101,3 +101,15 @@ a.my-2 {
     color: $primary_clr !important;
     margin-left: 20px;
 }
+
+.img-responsive {
+    width: 100%;
+}
+
+nb-layout-column {
+    // height: 100vh;
+    background-image: url('../../../assets/images/ellipse_bg.svg');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: -35% 225%;
+}

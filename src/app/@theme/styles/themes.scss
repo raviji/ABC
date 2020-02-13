@@ -2,7 +2,7 @@
 @import '~@nebular/theme/styles/theming';
 // @nebular out of the box themes
 @import '~@nebular/theme/styles/themes';
-// @import './fonts';
+@import './fonts';
 $nb-themes: nb-register-theme(( //     menu-text-color: white, 
 // menu-submenu-item-border-width:0px, 
 // menu-submenu-padding:0 0.5rem, 
