@@ -1,0 +1,130 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 1366px;
+}
+:host.loading {
+  align-items: center;
+  justify-content: center;
+}
+:host .top-controller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+:host .top-controller .toggles {
+  display: flex;
+  align-items: center;
+}
+:host .top-controller .toggles app-visible-column-control {
+  margin-right: 10px;
+}
+:host .scroll-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+:host .scroll-wrapper .inner-width-detector {
+  position: absolute;
+  width: 100%;
+}
+:host .scroll-wrapper .abc-table-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+:host .scroll-wrapper .abc-table-wrapper.clone {
+  position: absolute;
+}
+:host .scroll-wrapper .abc-table-wrapper.clone.header {
+  left: 0;
+  z-index: 5;
+}
+:host .scroll-wrapper .abc-table-wrapper.clone.column {
+  top: 0;
+  overflow: hidden;
+}
+:host .scroll-wrapper .abc-table-wrapper.clone.both {
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 7;
+}
+:host .scroll-wrapper .abc-table-wrapper.clone.both .header-table-wrapper .abc-header-cell:not(.hide) {
+  pointer-events: all;
+}
+:host .scroll-wrapper .abc-table-wrapper.clone.column::after, :host .scroll-wrapper .abc-table-wrapper.clone.both::after {
+  position: absolute;
+  content: "";
+  width: 2px;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background-color: #aaa;
+}
+:host .scroll-wrapper .header-table-wrapper, :host .scroll-wrapper .body-table-wrapper {
+  position: relative;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+:host app-table-paginator {
+  margin-top: 20px;
+}
+
+.abc-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.abc-cell {
+  background-color: #fff;
+}
+
+.abc-cell-inner {
+  padding: 5px 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.abc-cell-inner:not(.abc-action-cell-inner) {
+  flex-direction: column;
+}
+
+.abc-header-cell.in-control {
+  cursor: pointer;
+}
+.abc-header-cell .abc-cell-inner {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.abc-header-cell .abc-cell-inner span {
+  font-weight: normal;
+  margin-left: 20px;
+}
+
+.abc-action-button-wrapper {
+  position: relative;
+}
+
+::ng-deep .abc-table-context-menu {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  z-index: 50;
+  background-color: #fff;
+}
+::ng-deep .abc-table-context-menu.top {
+  bottom: 100%;
+  opacity: 1;
+}
+::ng-deep .abc-table-context-menu.bottom {
+  top: 100%;
+  opacity: 1;
+}
+
+/*# sourceMappingURL=table.component.css.map */

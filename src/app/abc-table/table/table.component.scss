@@ -36,7 +36,6 @@ $header-cell-background: linear-gradient(0deg, rgba(221, 221, 221, 1) 0%, rgba(2
     display: flex;
     width: 100%;
     overflow: auto;
-    border: $table-border;
     box-sizing: border-box;
 
     .inner-width-detector {
