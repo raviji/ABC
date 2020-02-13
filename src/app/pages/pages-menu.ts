@@ -40,7 +40,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Sub menu',
         link: '/pages/dashboard',
-      }
+      },
     ],
   },
   {

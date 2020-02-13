@@ -1,3 +1,26 @@
-<p>
-  price-admin works!
-</p>
+<div class="row">
+  <div class="col">
+    <label class="page_title">Default Price Method</label>
+  </div>
+  <div class="col text-right">
+    <a href="#">
+      <img src="./assets/images/icon_refresh.svg">
+    </a>
+  </div>
+</div>
+
+<div class="row mt20">
+  <div class="col">
+    <nb-card>
+      <nb-card-body>
+        <app-table class="table table-sm  table-striped"
+                   [columns]="columns"
+                   [rows]="rows">
+
+
+        </app-table>
+      </nb-card-body>
+    </nb-card>
+
+  </div>
+</div>

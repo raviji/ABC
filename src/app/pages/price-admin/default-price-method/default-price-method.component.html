@@ -1,3 +1,33 @@
-<p>
-  default-price-method works!
-</p>
+<div class="row">
+  <div class="col">
+    <label class="page_title">Default Price Method</label>
+  </div>
+  <div class="col text-right">
+    <a href="#">
+      <img src="./assets/images/icon_refresh.svg">
+    </a>
+  </div>
+</div>
+
+<div class="row mt20">
+  <div class="col">
+    <nb-accordion>
+      <nb-accordion-item class="mb-4" expanded="true">
+        <nb-accordion-item-header>Partially Approved/ Rejected/ Submitted Error</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-table class="table  table-striped"
+                     [columns]="columns"
+                     [rows]="rows"></app-table>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+      <nb-accordion-item expanded="true">
+        <nb-accordion-item-header>Approved</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-table class="table  table-striped"
+                     [columns]="columns"
+                     [rows]="rows"></app-table>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
+</div>
