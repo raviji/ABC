@@ -58,8 +58,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'message-circle-outline',
     children: [
       {
-        title: 'Sub menu',
-        link: '/pages/dashboard',
+        title: 'Target Price Method',
+        link: '/pages/admin-pricing',
       }
     ],
   },

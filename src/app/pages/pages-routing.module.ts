@@ -22,11 +22,10 @@ const routes: Routes = [{
       path: 'iot-dashboard',
       component: DashboardComponent,
     },
-    // {
-    //   path: 'layout',
-    //   loadChildren: () => import('./layout/layout.module')
-    //     .then(m => m.LayoutModule),
-    // },
+    {
+      path: 'admin-pricing',
+      loadChildren: () => import('./price-admin/price-admin.module')
+          .then(m => m.PriceAdminModule)    },
     // {
     //   path: 'forms',
     //   loadChildren: () => import('./forms/forms.module')
