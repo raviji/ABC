@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
       property: 'summary',
     },
     {
-      label: 'Action',
+      label: 'Action 2',
       property: 'action',
     },
   ];
@@ -43,8 +43,18 @@ export class DashboardComponent implements OnInit {
     date: string;
     priceRound: string;
     summary: string;
-    property: string;
   }[] = [];
+
+  public indexedRows:{
+    id: number;
+    date: string;
+    priceRound: string;
+    summary: string;
+  }[] = [];
+
+  editableRow = null;
+  deletableRow = null;
+  effectedRow = null;
 
   timer: number;
   constructor(private themeService: NbThemeService,
@@ -59,18 +69,30 @@ export class DashboardComponent implements OnInit {
     this.http.get('../../../assets/json/dashboard/pending.json')
         .subscribe(data => {
           this.rows = data as any;
+          this.indexedRows = this.rows.map((row, index) => {
+          return {...row, id: index};
+        });
           this.loading = false;
         });
   }
   approvedData() {
     this.loading = true;
-    this.http.get('../../../assets/json/dashboard/approved.json')
+    this.http.get('../../../assets/json/dashboard/pending.json')
         .subscribe(data => {
           this.rows = data as any;
+          this.indexedRows = this.rows.map((row, index) => {
+            return {...row, id: index};
+          });
           this.loading = false;
 
         });
   }
-
+  deleteRow(row: any) {
+    console.log(row);
+    this.indexedRows = this.indexedRows.filter(r => r.id !== row.id);
+  }
+  editRow(event) {
+    console.log(event);
+  }
 }
 

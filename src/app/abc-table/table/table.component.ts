@@ -10,7 +10,7 @@ import {
   Output,
   QueryList, Renderer2,
   SimpleChanges, ViewChild,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import {sortMethodAsc, sortMethodWithOrderMultiColumn} from '../util/sort.util';
 import {Subscription} from 'rxjs';
