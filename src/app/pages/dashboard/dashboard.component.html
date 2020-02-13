@@ -12,10 +12,22 @@
 <div class="row mt20">
     <div class="col">
         <nb-accordion>
-            <nb-accordion-item expanded="true">
+            <nb-accordion-item class="mb-4" expanded="true">
                 <nb-accordion-item-header>Partially Approved/ Rejected/ Submitted Error</nb-accordion-item-header>
                 <nb-accordion-item-body>
-                    Table content...
+                    <app-table class="table"
+                            [loading]="loading"
+                            [columns]="columns"
+                            [rows]="rows"></app-table>
+                </nb-accordion-item-body>
+            </nb-accordion-item>
+            <nb-accordion-item expanded="true">
+                <nb-accordion-item-header>Approved</nb-accordion-item-header>
+                <nb-accordion-item-body>
+                    <app-table class="table"
+                               [loading]="loading"
+                               [columns]="columns"
+                               [rows]="rows"></app-table>
                 </nb-accordion-item-body>
             </nb-accordion-item>
         </nb-accordion>

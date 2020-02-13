@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  font-size: 14px;
+
+  label {
+    // remove bootstrap style
+    margin-bottom: 0;
+  }
+}

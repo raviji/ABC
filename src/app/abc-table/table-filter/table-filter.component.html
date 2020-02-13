@@ -1,0 +1,32 @@
+<label *ngIf="filterableCellDefinitions && filterableCellDefinitions.length > 0">
+  Search by:
+  <select
+    [(ngModel)]="selectedCellDefinition"
+    (ngModelChange)="onSelectChange($event)">
+    <option selected [ngValue]="null">
+      Select column
+    </option>
+    <option *ngFor="let def of filterableCellDefinitions" [ngValue]="def">
+      {{def.label}}
+    </option>
+  </select>
+</label>
+
+<div class="input-wrapper">
+  <ng-container [ngSwitch]="selectedCellDefinition && selectedCellDefinition.dataType">
+    <ng-container *ngSwitchCase="'number'">
+      <app-number-input #numberInputComponent (valueChange)="onValueChange($event)"></app-number-input>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'date'">
+      <app-datepicker #datepickerComponent (dateChange)="onValueChange($event)"></app-datepicker>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <label>
+        Search
+        <input type="text" [(ngModel)]="searchKeyword" (ngModelChange)="onValueChange($event)"/>
+      </label>
+    </ng-container>
+  </ng-container>
+</div>

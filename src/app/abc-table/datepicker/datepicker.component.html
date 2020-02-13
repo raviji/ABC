@@ -1,0 +1,26 @@
+<div class="input-wrapper">
+  <label>
+    Start:
+    <input type="text" readonly (click)="openDatepicker()" [value]="toDateString(fromDate)"/>
+  </label>
+</div>
+<div class="input-wrapper">
+  <label>
+    End:
+    <input type="text" readonly (click)="openDatepicker()" [value]="toDateString(toDate)"/>
+  </label>
+</div>
+<ngb-datepicker
+  *ngIf="showDatepicker"
+  [dayTemplate]="dayTemplate"
+  [minDate]="minDate"
+  (dateSelect)="onDateSelection($event)"></ngb-datepicker>
+<ng-template #dayTemplate let-date let-focused="focused">
+  <span
+    class="custom-day"
+    [class.focused]="focused"
+    [class.range]="isRange(date)"
+    [class.faded]="isHovered(date) || isInside(date)"
+    (mouseenter)="hoveredDate = date"
+    (mouseleave)="hoveredDate = null">{{ date.day }}</span>
+</ng-template>

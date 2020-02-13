@@ -1,0 +1,42 @@
+[
+  {
+    "value1": 1,
+    "value2": 2,
+    "value3": 3
+  },
+  {
+    "value1": 1,
+    "value2": 1,
+    "value3": 3
+  },
+  {
+    "value1": 1,
+    "value2": 1,
+    "value3": 2
+  },
+  {
+    "value1": 1,
+    "value2": 2,
+    "value3": 2
+  },
+  {
+    "value1": 2,
+    "value2": 1,
+    "value3": 3
+  },
+  {
+    "value1": 2,
+    "value2": 2,
+    "value3": 3
+  },
+  {
+    "value1": 3,
+    "value2": 2,
+    "value3": 1
+  },
+  {
+    "value1": 2,
+    "value2": 2,
+    "value3": 1
+  }
+]

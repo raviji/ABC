@@ -1,0 +1,9 @@
+:host {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .input-wrapper + .input-wrapper {
+    margin-left: 10px;
+  }
+}

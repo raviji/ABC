@@ -1,0 +1,59 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+
+  .size, .paginator {
+    display: flex;
+    align-items: center;
+
+    span {
+      font-size: 12px;
+      color: #aaa;
+      margin-right: 7px;
+    }
+  }
+
+  .size {
+    select {
+      width: 80px;
+      height: 30px;
+    }
+  }
+
+  .paginator {
+    .page {
+      cursor: pointer;
+
+      &.disabled {
+        cursor: auto;
+
+        ::ng-deep {
+          path {
+            fill: #aaa;
+          }
+        }
+      }
+
+      &.number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+        color: #aaa;
+
+        &:hover:not(.active) {
+          color: #000;
+        }
+
+        &.active {
+          color: #1f89f2;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

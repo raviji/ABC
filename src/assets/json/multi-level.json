@@ -1,0 +1,26 @@
+[
+  {
+    "id": "Great Warrior",
+    "status": {
+      "str": 80,
+      "dex": 20,
+      "int": 5
+    }
+  },
+  {
+    "id": "Mighty Magician",
+    "status": {
+      "str": 3,
+      "dex": 6,
+      "int": 120
+    }
+  },
+  {
+    "id": "Thief",
+    "status": {
+      "str": 30,
+      "dex": 90,
+      "int": 12
+    }
+  }
+]

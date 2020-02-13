@@ -2,6 +2,8 @@ import {Component, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators' ;
 import { SolarData } from '../../@core/data/solar';
+import { TableColumnData } from '../../abc-table/table/table.component';
+import {HttpClient} from '@angular/common/http';
 
 interface CardSettings {
   title: string;
@@ -79,7 +81,39 @@ export class DashboardComponent implements OnDestroy {
     dark: this.commonStatusCardsSet,
   };
 
+  loading = false;
+  columns: TableColumnData[] = [
+    {
+      label: 'Date',
+      property: 'date',
+    },
+    {
+      label: 'Price Round',
+      property: 'priceRound',
+    },
+    {
+      label: 'Summary',
+      property: 'summary',
+    },
+    {
+      label: 'Action',
+      property: 'action',
+    },
+  ];
+
+  rows: {
+    date: string;
+    priceRound: string;
+    summary: string;
+    property: string;
+  }[] = [];
+
+  timer: number;
+
+
+
   constructor(private themeService: NbThemeService,
+              private http: HttpClient,
               private solarService: SolarData) {
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
@@ -96,5 +130,19 @@ export class DashboardComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.alive = false;
+  }
+
+  getData() {
+    this.loading = true;
+
+    this.http.get('../../../assets/json/default.json')
+        .subscribe(data => {
+          this.rows = data as any;
+
+          // to show loading spinner
+          setTimeout(() => {
+            this.loading = false;
+          }, 2000);
+        });
   }
 }

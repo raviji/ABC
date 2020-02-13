@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 6px solid #cecece;
+  border-top-color: #1f89f2;
+  box-sizing: border-box;
+  animation: spin linear .3s infinite;
+  position: relative;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

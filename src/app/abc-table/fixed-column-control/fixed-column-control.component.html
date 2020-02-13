@@ -1,0 +1,10 @@
+<label>
+  Freeze First:
+  <input
+    min="0"
+    (input)="adjustSize($event)"
+    [(ngModel)]="fixedColumnSize"
+    [max]="fixableCellDefinitions.length"
+    (ngModelChange)="onChangeFixedSize($event)" type="number"/>
+  Columns
+</label>

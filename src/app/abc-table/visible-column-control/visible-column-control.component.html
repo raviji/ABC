@@ -1,0 +1,11 @@
+<button (click)="toggleController()">
+  Hide columns
+</button>
+<div class="controller" *ngIf="showController">
+  <div class="item" (click)="showAllColumns()">
+    <span>Show all</span>
+  </div>
+  <div class="item" *ngFor="let column of allColumns" (click)="onChangeHiddenColumns(column)">
+    <span>{{column.label}}</span> <app-row-selector [checked]="isHidden(column)"></app-row-selector>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+
+  // remove bootstrap style
+  label {
+    margin-bottom: 0;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  * + .input-wrapper {
+    margin-left: 10px;
+  }
+}
