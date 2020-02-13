@@ -1,16 +1,12 @@
-$font-family-sans-serif : "HP_Simplified_W10_Light",Helvetica,Arial,sans-serif !default;
-$font-family-serif : "HP_Simplified_W10_Light",Georgia,"Times New Roman",Times,serif !default;
-$font-family-monospace : Menlo,Monaco,Consolas,"Courier New",monospace !default;
-$font-family-base : $font-family-sans-serif !default;
-$roboto-font-path: "../../../assets/fonts/" !default;
-
-@font-face {
-    font-family: "HP_Simplified_W10_Light";
-    src: local(HP_Simplified_W10_Light),
-    font-url('../../../assets/fonts/HP_Simplified_W10_Light.eot');
-    src: font-url("#{$roboto-font-path}HP_Simplified_W10_Light.eot?#iefix") format('embedded-opentype'),
-    font-url("../../../assets/fonts/HP_Simplified_W10_Light.woff2") format("woff2"),
-    font-url("../../../assets/fonts/HP_Simplified_W10_Light.woff") format("woff"),
-    font-url("../../../assets/fonts/HP_Simplified_W10_Light.ttf") format("truetype");
-    font-weight: 200;
+$font-path: "../../../assets/fonts/" !default;
+@mixin hpFont($fileName) {
+    @font-face {
+        font-family: "#{$fileName}";
+        src: url("#{$font-path}#{$fileName}.eot");
+        src: url("#{$font-path}#{$fileName}.eot?#iefix") format("embedded-opentype"),
+        url("#{$font-path}#{$fileName}.woff2") format("woff2"),
+        url("#{$font-path}#{$fileName}.woff") format("woff"),
+        url("#{$font-path}#{$fileName}.ttf") format("truetype"),
+        url("#{$font-path}#{$fileName}.svg#HP Simplified W10 Light") format("svg");
+    }
 }

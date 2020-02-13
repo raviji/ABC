@@ -13,12 +13,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'grid-outline',
     children: [
       {
-        title: 'Calendar',
-        link: '/pages/general/calendar',
+        title: 'Home',
+        link: '/pages/home',
       },
       {
-        title: 'Alerts',
-        link: '/pages/general/alert',
+        title: 'User Dashboard',
+        link: '/pages/dashboard',
       },
     ],
   },
